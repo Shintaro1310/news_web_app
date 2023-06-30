@@ -5,12 +5,14 @@ interface NewsListState {
   setNewsList: (newsList: NewsList | null) => void;
   setNewsListArticle: (newsListArticle: NewsListArticle[]) => void;
   setNewsListSource: (newsListSource: NewsListSource | null) => void;
+  setIsLoading:(isLoading:boolean)=>void
 }
 
 export const fetchNewsList = async ({
   setNewsList,
   setNewsListArticle,
   setNewsListSource,
+  setIsLoading
 }: NewsListState) => {
   try {
     const response = await axios.get(
@@ -41,9 +43,10 @@ export const fetchNewsList = async ({
       id: null,
       name: "",
     };
-    setNewsList(fetchedNewsList);
-    setNewsListArticle(fetchedNewsListArticle);
-    setNewsListSource(fetchedNewsListSource);
+    await setNewsList(fetchedNewsList);
+    await setNewsListArticle(fetchedNewsListArticle);
+    await  setNewsListSource(fetchedNewsListSource);
+    setIsLoading(false);
   } catch (error) {
     console.log("エラー", error);
   }
