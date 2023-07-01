@@ -14,7 +14,10 @@ export default function Header(){
       <a  href="/" className="mr-5 hover:text-gray-900 text-1xl">Top</a>
       <a href="/Business" className="mr-5 hover:text-gray-900 text-1xl">Business</a>
       <a href="/Technology" className="mr-5 hover:text-gray-900 text-1xl">Technology</a>
+      <a href="/Science" className="mr-5 hover:text-gray-900 text-1xl">Science</a>
+      <a href="/Entertainment" className="mr-5 hover:text-gray-900 text-1xl">Entertainment</a>
       <a href="/Sports" className="mr-5 hover:text-gray-900 text-1xl">Sports</a>
+      <a href="/Health" className="mr-5 hover:text-gray-900 text-1xl">Health</a>
     </nav>
   </div>
 </header>

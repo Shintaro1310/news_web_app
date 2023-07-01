@@ -2,17 +2,18 @@ import Header from "@/component/Header";
 import Loading from "@/component/Loading";
 import NewsCard from "@/component/NewsCard";
 import { fetchBusinessNewsList } from "@/network/business/client";
-import { BusinessArticleNewsList, BusinessNewsList, BusinessSourceNewsList } from "@/network/business/model";
+import { fetchEntertainmentNewsList } from "@/network/entertainment/client";
+import { EntertainmentArticleNewsList, EntertainmentNewsList, EntertainmentSourceNewsList } from "@/network/entertainment/model";
 import { useEffect, useState } from "react";
 
-export default function Business() {
-    const [newsList, setBusinessNewsList] = useState<BusinessNewsList | null>(null);
-    const [newsListArticle, setBusinessNewsListArticle] = useState<BusinessArticleNewsList[]>([]);
-    const [newsListSource, setBusinessNewsListSource] = useState<BusinessSourceNewsList | null>(null);
-    const [isLoading,setBusinessIsLoading] =useState(true)
+export default function Entertainment() {
+    const [newsList, setEntertainmentNewsList] = useState<EntertainmentNewsList | null>(null);
+    const [newsListArticle, setEntertainmentNewsListArticle] = useState<EntertainmentArticleNewsList[]>([]);
+    const [newsListSource, setEntertainmentNewsListSource] = useState<EntertainmentSourceNewsList | null>(null);
+    const [isLoading,setEntertainmentIsLoading] =useState(true)
   
     useEffect(() => {
-      fetchBusinessNewsList({ setBusinessNewsList, setBusinessNewsListArticle, setBusinessNewsListSource ,setBusinessIsLoading});
+      fetchEntertainmentNewsList({ setEntertainmentNewsList, setEntertainmentNewsListArticle, setEntertainmentNewsListSource ,setEntertainmentIsLoading});
     }, []);
   
     return (

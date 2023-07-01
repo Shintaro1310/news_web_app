@@ -22,9 +22,9 @@ export default function Home() {
   return (
     <main>
     {   isLoading? <Loading></Loading>: <div>
+      <div className="space-y-5">
       <Header></Header>
       <div className="space-y-4">
-        <br></br>
         {
         
             newsListArticle.map((article) => (
@@ -35,7 +35,9 @@ export default function Home() {
         }
       </div>
         
-      </div>}
+      </div>
+      </div>
+     }
 
     </main>
   );
