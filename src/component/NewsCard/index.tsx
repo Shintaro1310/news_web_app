@@ -13,18 +13,21 @@ export default function NewsCard({image,title,publishedAt}:NewsCardContent){
 
 
     return(
-        <div className="space-y-4">
-            <div className="flex">
-            <div className="w-72 h-13 px-8"> 
-                <img src={image}></img></div>
-                <div className="space-y-8">
-                <div className="text-xl font-bold">{title}</div>
-            <div className="px-210">{publishedAt}</div>
-                </div>
-            </div>
-            <div className="px-8"><hr></hr></div>
-          
+        <div className="flex justify-center px-8">
+            <a href="#" className="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row w-full h-40  hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <img className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-52 md:h-28 md:rounded-none md:rounded-l-lg px-2" src={image} alt={image}/>
+    <div className="flex flex-col justify-between p-4 leading-normal space-y-4">
+        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
+        <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{publishedAt}</p>
+    </div>
+</a>
+
+
+
         </div>
+        
+  
+
 
       
 

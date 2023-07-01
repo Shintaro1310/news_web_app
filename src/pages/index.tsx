@@ -26,7 +26,7 @@ export default function Home() {
            isLoading? <Loading></Loading>:
             newsListArticle.map((article) => (
     
-           <NewsCard image={article.urlToImage!} title={article.title} publishedAt={article.publishedAt}></NewsCard>
+           <NewsCard  image={article.urlToImage!} title={article.title} publishedAt={article.publishedAt}></NewsCard>
               
              ))
         }
