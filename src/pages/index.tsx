@@ -5,6 +5,7 @@ import { NewsList, NewsListArticle, NewsListSource } from "@/network/newsList/mo
 import { fetchNewsList } from "@/network/newsList/client";
 import NewsCard from "@/component/NewsCard";
 import Loading from "@/component/Loading";
+import Header from "@/component/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,17 +21,24 @@ export default function Home() {
 
   return (
     <main>
+    {   isLoading? <Loading></Loading>: <div>
+      <div className="space-y-5">
+      <Header></Header>
       <div className="space-y-4">
-        <br></br>
         {
-           isLoading? <Loading></Loading>:
+        
             newsListArticle.map((article) => (
     
-           <NewsCard  image={article.urlToImage!} title={article.title} publishedAt={article.publishedAt}></NewsCard>
+           <NewsCard  image={article.urlToImage!} title={article.title} publishedAt={article.publishedAt} url={article.url} author={article.author}></NewsCard>
               
              ))
         }
       </div>
+        
+      </div>
+      </div>
+     }
+
     </main>
   );
 }
