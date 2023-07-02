@@ -1,11 +1,13 @@
 import axios from "axios";
-import { NewsList, NewsListArticle, NewsListSource } from "./model";
+import { NewsList, NewsListArticle, NewsListSource } from "../top/model";
+
+
 
 interface NewsListState {
   setNewsList: (newsList: NewsList | null) => void;
   setNewsListArticle: (newsListArticle: NewsListArticle[]) => void;
   setNewsListSource: (newsListSource: NewsListSource | null) => void;
-  setIsLoading:(isLoading:boolean)=>void
+  setIsLoading: (isLoading: boolean) => void
 }
 
 export const fetchNewsList = async ({
@@ -28,15 +30,15 @@ export const fetchNewsList = async ({
       response.data.articles
     )
       ? response.data.articles.map((article: any) => ({
-          source: article.source,
-          author: article.author,
-          title: article.title,
-          description: article.description,
-          url: article.url,
-          urlToImage: article.urlToImage,
-          publishedAt: article.publishedAt,
-          content: article.content,
-        }))
+        source: article.source,
+        author: article.author,
+        title: article.title,
+        description: article.description,
+        url: article.url,
+        urlToImage: article.urlToImage,
+        publishedAt: article.publishedAt,
+        content: article.content,
+      }))
       : [];
 
     const fetchedNewsListSource: NewsListSource = {
@@ -45,7 +47,7 @@ export const fetchNewsList = async ({
     };
     await setNewsList(fetchedNewsList);
     await setNewsListArticle(fetchedNewsListArticle);
-    await  setNewsListSource(fetchedNewsListSource);
+    await setNewsListSource(fetchedNewsListSource);
     setIsLoading(false);
   } catch (error) {
     console.log("エラー", error);

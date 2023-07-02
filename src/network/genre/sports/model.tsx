@@ -1,11 +1,11 @@
-export interface TechnologyNewsList {
+export interface SportsNewsList {
     status: string;
     totalResults: number;
-    articles: TechnologyArticleNewsList[];
-  }
-  
-  export interface TechnologyArticleNewsList {
-    source: TechnologySourceNewsList;
+    articles: SportsArticleNewsList[];
+}
+
+export interface SportsArticleNewsList {
+    source: SportsSourceNewsList;
     author: null | string;
     title: string;
     description: null | string;
@@ -13,10 +13,9 @@ export interface TechnologyNewsList {
     urlToImage: null | string;
     publishedAt: string;
     content: null | string;
-  }
-  
-  export interface TechnologySourceNewsList {
+}
+
+export interface SportsSourceNewsList {
     id: null | string;
     name: string;
-  }
-  
+}
