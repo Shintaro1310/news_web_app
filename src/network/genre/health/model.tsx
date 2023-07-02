@@ -1,11 +1,11 @@
-export interface SportsNewsList {
+export interface HealthNewsList {
     status: string;
     totalResults: number;
-    articles: SportsArticleNewsList[];
-  }
-  
-  export interface SportsArticleNewsList {
-    source: SportsSourceNewsList;
+    articles: HealthArticleNewsList[];
+}
+
+export interface HealthArticleNewsList {
+    source: HealthSourceNewsList;
     author: null | string;
     title: string;
     description: null | string;
@@ -13,10 +13,9 @@ export interface SportsNewsList {
     urlToImage: null | string;
     publishedAt: string;
     content: null | string;
-  }
-  
-  export interface SportsSourceNewsList {
+}
+
+export interface HealthSourceNewsList {
     id: null | string;
     name: string;
-  }
-  
+}
