@@ -5,7 +5,7 @@ interface WeatherContent {
 }
 
 
-export default function WeatherCard({ weather }: WeatherContent) {
+export function WeatherCard({ weather }: WeatherContent) {
 
     return (
         <div className=" w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
@@ -15,7 +15,7 @@ export default function WeatherCard({ weather }: WeatherContent) {
 
                     <div className="flex flex-row space-x-4">
                         {weather.forecasts.map((weather) => (
-                            <div>
+                            <div key={weather.image.width}>
                                 <div className="">{weather.dateLabel}</div>
                                 <img src={weather.image.url} alt="weather" style={{ width: '100%', height: 'auto' }} />
                                 <div className="text-xs">{weather.telop}</div>

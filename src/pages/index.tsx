@@ -1,15 +1,13 @@
-import Image from "next/image";
 import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
-import { NewsList, NewsListArticle, NewsListSource } from "@/network/genre/top/model";
 import NewsCard from "@/component/NewsCard";
 import Loading from "@/component/Loading";
 import Header from "@/component/Header";
 import { ChanceOfRain, Copyright, Description, Detail, Forecast, Max, Provider, Temperature, Weather, WeatherImage } from "@/network/weather/model";
-import WeatherCard from "@/component/TemperatureCard";
 import { fetchWeather } from "@/network/weather/client";
 import { useRecoilValueLoadable } from "recoil";
 import { fetchNewsListState } from "@/network/genre/top/client";
+import { WeatherCard } from "@/component/TemperatureCard";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -47,7 +45,7 @@ export default function Home() {
             <div className="space-y-2">
             <br></br>
             {topNewsList.contents.map((topNews) => (
-              <div>
+              <div key={topNews.source.id}>
                 <NewsCard
                   image={topNews.urlToImage!}
                   title={topNews.title}
