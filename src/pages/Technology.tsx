@@ -1,41 +1,50 @@
-import Header from "@/component/Header";
-import Loading from "@/component/Loading";
-import NewsCard from "@/component/NewsCard";
-import { fetchTechnologyNewsList } from "@/network/genre/technology/client";
-import { TechnologyArticleNewsList, TechnologyNewsList, TechnologySourceNewsList } from "@/network/genre/technology/model";
+import Image from "next/image";
+import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
+import { NewsList, NewsListArticle, NewsListSource } from "@/network/genre/top/model";
+import NewsCard from "@/component/NewsCard";
+import Loading from "@/component/Loading";
+import Header from "@/component/Header";
+import { ChanceOfRain, Copyright, Description, Detail, Forecast, Max, Provider, Temperature, Weather, WeatherImage } from "@/network/weather/model";
+import WeatherCard from "@/component/TemperatureCard";
+import { fetchWeather } from "@/network/weather/client";
+import { useRecoilValueLoadable } from "recoil";
+import { fetchNewsListState } from "@/network/genre/top/client";
+import { fetchTechnologyNewsListState } from "@/network/genre/technology/client";
 
-export default function Technology() {
-    const [newsList, setTechnologyNewsList] = useState<TechnologyNewsList | null>(null);
-    const [newsListArticle, setTechnologyNewsListArticle] = useState<TechnologyArticleNewsList[]>([]);
-    const [newsListSource, setTechnologyNewsListSource] = useState<TechnologySourceNewsList | null>(null);
-    const [isLoading, setTechnologyIsLoading] = useState(true);
 
-    useEffect(() => {
-        fetchTechnologyNewsList({ setTechnologyNewsList, setTechnologyNewsListArticle, setTechnologyNewsListSource, setTechnologyIsLoading });
-    }, []);
+const inter = Inter({ subsets: ["latin"] });
 
-    return (
+export default function Home() {
+  const topNewsList = useRecoilValueLoadable(fetchTechnologyNewsListState)
+  switch (topNewsList.state) {
+    case "hasError":
+      throw topNewsList.contents;
+    case "loading":
+      return <div><Loading></Loading></div>;
+    case "hasValue":
+      return (
         <main>
-            {isLoading ? (
-                <Loading />
-            ) : (
-                <div>
-                    <Header />
-                    <div className="space-y-4">
-                        <br />
-                        {newsListArticle.map((article) => (
-                            <NewsCard
-                                image={article.urlToImage!}
-                                title={article.title}
-                                publishedAt={article.publishedAt}
-                                url={article.url}
-                                author={article.author}
-                            />
-                        ))}
-                    </div>
-                </div>
-            )}
+          <div>
+            <Header></Header>
+            <div className="flex flex-row ">
+            <div className="space-y-2">
+            <br></br>
+            {topNewsList.contents.map((topNews) => (
+              <div>
+                <NewsCard
+                  image={topNews.urlToImage!}
+                  title={topNews.title}
+                  publishedAt={topNews.publishedAt}
+                  url={topNews.url}
+                  author={topNews.author}
+                ></NewsCard>
+              </div>
+            ))}
+            </div>
+            </div>
+          </div>
         </main>
-    );
+      );
+  }
 }

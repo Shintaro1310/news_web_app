@@ -1,36 +1,51 @@
-import Header from "@/component/Header";
-import Loading from "@/component/Loading";
-import NewsCard from "@/component/NewsCard";
-import { fetchScienceNewsList } from "@/network/genre/science/client";
-
-import { ScienceArticleNewsList, ScienceNewsList, ScienceSourceNewsList } from "@/network/genre/science/model"; // Scienceの関連するモデルからのインポート
+import Image from "next/image";
+import { Inter } from "next/font/google";
 import { useEffect, useState } from "react";
+import { NewsList, NewsListArticle, NewsListSource } from "@/network/genre/top/model";
+import NewsCard from "@/component/NewsCard";
+import Loading from "@/component/Loading";
+import Header from "@/component/Header";
+import { ChanceOfRain, Copyright, Description, Detail, Forecast, Max, Provider, Temperature, Weather, WeatherImage } from "@/network/weather/model";
+import WeatherCard from "@/component/TemperatureCard";
+import { fetchWeather } from "@/network/weather/client";
+import { useRecoilValueLoadable } from "recoil";
+import { fetchNewsListState } from "@/network/genre/top/client";
+import { fetchTechnologyNewsListState } from "@/network/genre/technology/client";
+import { fetchScienceNewsListState } from "@/network/genre/science/client";
 
-export default function Science() {
-    const [newsList, setScienceNewsList] = useState<ScienceNewsList | null>(null);
-    const [newsListArticle, setScienceNewsListArticle] = useState<ScienceArticleNewsList[]>([]);
-    const [newsListSource, setScienceNewsListSource] = useState<ScienceSourceNewsList | null>(null);
-    const [isLoading, setScienceIsLoading] = useState(true);
 
-    useEffect(() => {
-        fetchScienceNewsList({ setScienceNewsList, setScienceNewsListArticle, setScienceNewsListSource, setScienceIsLoading });
-    }, []);
+const inter = Inter({ subsets: ["latin"] });
 
-    return (
+export default function Home() {
+  const topNewsList = useRecoilValueLoadable(fetchScienceNewsListState)
+  switch (topNewsList.state) {
+    case "hasError":
+      throw topNewsList.contents;
+    case "loading":
+      return <div><Loading></Loading></div>;
+    case "hasValue":
+      return (
         <main>
-            {isLoading ? (
-                <Loading></Loading>
-            ) : (
-                <div>
-                    <Header></Header>
-                    <div className="space-y-4">
-                        <br></br>
-                        {newsListArticle.map((article) => (
-                            <NewsCard image={article.urlToImage!} title={article.title} publishedAt={article.publishedAt} url={article.url} author={article.author}></NewsCard>
-                        ))}
-                    </div>
-                </div>
-            )}
+          <div>
+            <Header></Header>
+            <div className="flex flex-row ">
+            <div className="space-y-2">
+            <br></br>
+            {topNewsList.contents.map((topNews) => (
+              <div>
+                <NewsCard
+                  image={topNews.urlToImage!}
+                  title={topNews.title}
+                  publishedAt={topNews.publishedAt}
+                  url={topNews.url}
+                  author={topNews.author}
+                ></NewsCard>
+              </div>
+            ))}
+            </div>
+            </div>
+          </div>
         </main>
-    );
+      );
+  }
 }
