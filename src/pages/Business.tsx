@@ -1,9 +1,11 @@
 import { Inter } from "next/font/google";
-import NewsCard from "@/component/NewsCard";
+
 import Loading from "@/component/Loading";
-import Header from "@/component/Header";
+
 import { useRecoilValueLoadable } from "recoil";
 import { fetchBusinessNewsListState } from "@/network/genre/business/client";
+import { NewsCard } from "@/component/NewsCard";
+import { Header } from "@/component/Header";
 
 
 const inter = Inter({ subsets: ["latin"] });

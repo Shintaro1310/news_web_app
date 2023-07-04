@@ -1,35 +1,21 @@
 import { Inter } from "next/font/google";
-import { useEffect, useState } from "react";
-import NewsCard from "@/component/NewsCard";
 import Loading from "@/component/Loading";
-import Header from "@/component/Header";
-import { ChanceOfRain, Copyright, Description, Detail, Forecast, Max, Provider, Temperature, Weather, WeatherImage } from "@/network/weather/model";
-import { fetchWeather } from "@/network/weather/client";
+
 import { useRecoilValueLoadable } from "recoil";
 import { fetchNewsListState } from "@/network/genre/top/client";
 import { WeatherCard } from "@/component/TemperatureCard";
+import { fetchWeatherState } from "@/network/weather/client";
+import { NewsCard, TopNewsCard } from "@/component/NewsCard";
+import { Header } from "@/component/Header";
 
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [weather, setWeather] = useState<Weather | null>(null);
-  const [copyright, setCopyright] = useState<Copyright[]>([]);
-  const [image, setImage] = useState<WeatherImage | null>(null);
-  const [Provider, setProvider] = useState<Provider[]>([]);
-  const [description, setDescription] = useState<Description | null>(null);
-  const [forecast, setForecast] = useState<Forecast[]>([]);
-  const [chanceOfRain, setChanceOfRain] = useState<ChanceOfRain | null>(null);
-  const [detail, setDetail] = useState<Detail | null>(null);
-  const [temperature, setTemperature] = useState<Temperature | null>(null);
-  const [max, setMax] = useState<Max | null>(null);
-  const [weatherIsLoading, setWeatherIsLoading] = useState(true);
   const topNewsList = useRecoilValueLoadable(fetchNewsListState)
+  const weather=useRecoilValueLoadable(fetchWeatherState)
 
-  useEffect(() => {
-    fetchWeather({ setWeather, setCopyright, setImage, setProvider, setDescription, setForecast, setChanceOfRain, setDetail, setTemperature, setMax, setWeatherIsLoading })
 
-  }, []);
 
   switch (topNewsList.state) {
     case "hasError":
@@ -41,9 +27,12 @@ export default function Home() {
         <main>
           <div>
             <Header></Header>
+          
             <div className="flex flex-row ">
             <div className="space-y-2">
             <br></br>
+            
+            <TopNewsCard image1={topNewsList.contents[0].urlToImage!}image2={topNewsList.contents[1].urlToImage!}image3={topNewsList.contents[2].urlToImage!}image4={topNewsList.contents[3].urlToImage!}image5={topNewsList.contents[4].urlToImage!}></TopNewsCard>
             {topNewsList.contents.map((topNews) => (
               <div key={topNews.source.id}>
                 <NewsCard
@@ -56,8 +45,9 @@ export default function Home() {
               </div>
             ))}
             </div>
-            <div className="px-24">
-              <WeatherCard weather={weather!}></WeatherCard>
+
+            <div className="p-14">
+              <WeatherCard weather={weather.contents}></WeatherCard>
             </div>
             </div>
           </div>
