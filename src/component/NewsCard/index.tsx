@@ -54,7 +54,7 @@ export const NewsCarousel =({newsCarouselList}:ImageNewsCarouselContent)=>{
                       const dateString = value.publishedAt;
                       const date = new Date(dateString);
                       const formattedDate = format(date, "yyyy年MM月dd日");
-                             return  <div className="w-screen bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100">
+                             return  <div key={value.source.id}className="w-screen bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100">
                               <a href={value.url} target="_blank">
                                   <img className="rounded-t-lg w-full h-44" src={value.urlToImage!} alt="" />
                                   <div className="p-5">
