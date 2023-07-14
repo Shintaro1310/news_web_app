@@ -5,8 +5,9 @@ import { useRecoilValueLoadable } from "recoil";
 import { fetchNewsListState } from "@/network/genre/top/client";
 import { WeatherCard } from "@/component/TemperatureCard";
 import { fetchWeatherState } from "@/network/weather/client";
-import { NewsCard, TopNewsCard } from "@/component/NewsCard";
+
 import { Header } from "@/component/Header";
+import { NewsCard ,NewsCarousel,TopTwoCard} from "@/component/NewsCard";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -31,8 +32,13 @@ export default function Home() {
             <div className="flex flex-row ">
             <div className="space-y-2">
             <br></br>
+            <NewsCarousel newsCarouselList={topNewsList.contents} ></NewsCarousel>
+
+           {/* <TopTwoCard image1={topNewsList.contents[0].urlToImage} image2={topNewsList.contents[1].urlToImage}></TopTwoCard> */}
             
-            <TopNewsCard image1={topNewsList.contents[0].urlToImage!}image2={topNewsList.contents[1].urlToImage!}image3={topNewsList.contents[2].urlToImage!}image4={topNewsList.contents[3].urlToImage!}image5={topNewsList.contents[4].urlToImage!}></TopNewsCard>
+            
+            {/* <TopNewsCard image1={topNewsList.contents[0].urlToImage!}image2={topNewsList.contents[1].urlToImage!}image3={topNewsList.contents[2].urlToImage!}image4={topNewsList.contents[3].urlToImage!}image5={topNewsList.contents[4].urlToImage!}></TopNewsCard> */}
+            
             {topNewsList.contents.map((topNews) => (
               <div key={topNews.source.id}>
                 <NewsCard
@@ -42,6 +48,7 @@ export default function Home() {
                   url={topNews.url}
                   author={topNews.author}
                 ></NewsCard>
+                
               </div>
             ))}
             </div>
